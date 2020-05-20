@@ -1,0 +1,87 @@
+﻿@model Doctors_WebForum.Models.ViewModels.SpecializeViewModelAdmin
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="m-subheader ">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="m-subheader__title m-subheader__title--separator">Chỉnh Sửa Chuyên Môn</h3>
+            <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                <li class="m-nav__item m-nav__item--home">
+                    <a href="@Url.Action("Index","Admin")" class="m-nav__link m-nav__link--icon">
+                        <i class="m-nav__link-icon la la-home"></i>
+                    </a>
+                </li>
+                <li class="m-nav__separator">-</li>
+                <li class="m-nav__separator"></li>
+                <li class="m-nav__item">
+                    <a href="@Url.Action("GetSpecialize","Admin")" class="m-nav__link">
+                        <i class="m-menu__link-icon flaticon-menu-2"></i>
+                    </a>
+                </li>
+                <li class="m-nav__separator"></li>
+                <li class="m-nav__separator">-</li>
+                <li class="m-nav__separator"></li>
+                <li class="m-nav__item">
+                    <a href="@Url.Action("UpdateSpe","Admin")" class="m-nav__link">
+                        <i class="m-nav__link-icon la la-wrench"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="m-content">
+    <div class="m-portlet m-portlet--tab">
+        <div class="m-portlet__head">
+            <div class="m-portlet__head-caption">
+                <div class="m-portlet__head-title">
+                    <span class="m-portlet__head-icon m--hide">
+                        <i class="la la-gear"></i>
+                    </span>
+                    <h3 class="m-portlet__head-text">
+                        Chỉnh Sửa Chuyên Môn
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+        <!--begin::Form-->
+        <form class="m-form m-form--fit m-form--label-align-right" method="post">
+            <div class="m-portlet__body">
+
+                <div class="form-group m-form__group">
+                    <label for="exampleInputPassword1">Tên Chuyên Môn :</label>
+                    @Html.TextBoxFor(model => model.SpecializeName, new { @class = "form-control m-input m-input--air m-input--pill", id = "exampleInputPassword1", placeholder = "Tên Chuyên Môn", autocomplete = "off" })
+                </div>
+                <div class="form-group m-form__group">
+                    <label for="exampleInputPassword1">Mô Tả :</label>
+                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control m-input m-input--air m-input--pill", id = "exampleTextarea", placeholder = "Mô tả", autocomplete = "off", rows = "10" })
+                </div>
+
+
+            </div>
+            <div class="m-portlet__foot m-portlet__foot--fit">
+                <div class="m-form__actions">
+                    @Html.HiddenFor(model => model.Id)
+                    <button type="submit" class="btn btn-brand">Chỉnh Sửa</button>
+                    <button type="reset" class="btn btn-secondary">Hủy Bỏ</button>
+                </div>
+            </div>
+        </form>
+
+        <!--end::Form-->
+    </div>
+
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval");
+}

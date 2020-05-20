@@ -1,0 +1,690 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Admin | Trang Chủ</title>
+    <meta name="description" content="Latest updates and statistic charts">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+    <script>
+        WebFont.load({
+            google: { "families": ["Poppins:300,400,500,600,700", "Roboto:300,400,500,600,700"] },
+            active: function () {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+
+    <link href="~/Content/cssAdmin/vendors/base/vendors.bundle.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/Content/cssAdmin/demo/default/base/style.bundle.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/Content/cssAdmin/vendors/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
+
+    <link rel="shortcut icon" href="~/Content/cssAdmin/demo/default/media/img/logo/favicon.ico" />
+</head>
+
+<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default" style="">
+  
+    <div class="m-grid m-grid--hor m-grid--root m-page">
+
+        <header id="m_header" class="m-grid__item    m-header " m-minimize-offset="200" m-minimize-mobile-offset="200">
+            <div class="m-container m-container--fluid m-container--full-height">
+                <div class="m-stack m-stack--ver m-stack--desktop">
+
+                    <div class="m-stack__item m-brand  m-brand--skin-dark ">
+                        <div class="m-stack m-stack--ver m-stack--general">
+                            <div class="m-stack__item m-stack__item--middle m-brand__logo">
+                                <a href="@Url.Action("Index","Admin")" class="m-brand__logo-wrapper">
+                                    <img alt="" src="~/Content/cssAdmin/demo/default/media/img/logo/logo_default_dark.png">
+                                </a>
+                            </div>
+                            <div class="m-stack__item m-stack__item--middle m-brand__tools">
+    
+                                <a href="javascript:;" id="m_aside_left_minimize_toggle" class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-desktop-inline-block  ">
+                                    <span></span>
+                                </a>
+
+                                <a href="javascript:;" id="m_aside_left_offcanvas_toggle" class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-tablet-and-mobile-inline-block">
+                                    <span></span>
+                                </a>
+
+                                <a id="m_aside_header_menu_mobile_toggle" href="javascript:;" class="m-brand__icon m-brand__toggler m--visible-tablet-and-mobile-inline-block">
+                                    <span></span>
+                                </a>
+
+                                <a id="m_aside_header_topbar_mobile_toggle" href="javascript:;" class="m-brand__icon m--visible-tablet-and-mobile-inline-block">
+                                    <i class="flaticon-more"></i>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="m-stack__item m-stack__item--fluid m-header-head" id="m_header_nav">
+
+                        <button class="m-aside-header-menu-mobile-close  m-aside-header-menu-mobile-close--skin-dark " id="m_aside_header_menu_mobile_close_btn"><i class="la la-close"></i></button>
+                        <div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-light m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-dark m-aside-header-menu-mobile--submenu-skin-dark ">
+
+
+                        </div>
+
+                        <div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general m-stack--fluid">
+                            <div class="m-stack__item m-topbar__nav-wrapper">
+                                <ul class="m-topbar__nav m-nav m-nav--inline">
+                                   
+
+                                    @if (Session["Email"] != null)
+                                    {
+                                        <li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click">
+                                            <a href="#" class="m-nav__link m-dropdown__toggle">
+                                                <span class="m-topbar__userpic">
+                                                    @if (Session["ImgAdmin"] == null)
+                                                    {
+                                                        <img src="~/Content/cssAdmin/app/media/img/users/user4.jpg" class="m--img-rounded m--marginless" alt="">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src='~/Content/cssAdmin/app/media/img/users/@Session["ImgAdmin"]' width="41" height="41" class="m--img-rounded m--marginless" alt="">
+                                                    }
+
+                                                </span>
+                                                <span class="m-topbar__username m--hide">Nick</span>
+                                            </a>
+                                            <div class="m-dropdown__wrapper">
+                                                <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                                                <div class="m-dropdown__inner">
+
+                                                    
+                                                    <div class="m-dropdown__header m--align-center" style="background-color:#8700ff; background-size: cover;">
+                                                        
+                                                        <div class="m-card-user m-card-user--skin-dark">
+                                                            <div class="m-card-user__pic">
+                                                                @if (Session["ImgAdmin"] == null)
+                                                                {
+                                                                    <img src="~/Content/cssAdmin/app/media/img/users/user4.jpg" class="m--img-rounded m--marginless" alt="">
+                                                                }
+                                                                else
+                                                                {
+                                                                    <img src='~/Content/cssAdmin/app/media/img/users/@Session["ImgAdmin"]' width="70" height="70" class="m--img-rounded m--marginless" alt="">
+                                                                }
+                                                            </div>
+                                                            <div class="m-card-user__details">
+                                                                <span class="m-card-user__name m--font-weight-500">@Session["Email"]</span>
+                                                                <a href="" class="m-card-user__email m--font-weight-300 m-link">@Session["Email"]</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="m-dropdown__body">
+                                                        <div class="m-dropdown__content">
+                                                            <ul class="m-nav m-nav--skin-light">
+                                                                <li class="m-nav__section m--hide">
+                                                                    <span class="m-nav__section-text">Section</span>
+                                                                </li>
+                                                                <li class="m-nav__item">
+                                                                    <a href="@Url.Action("Information","Admin")" class="m-nav__link">
+                                                                        <i class="m-nav__link-icon flaticon-profile-1"></i>
+                                                                        <span class="m-nav__link-title">
+                                                                            <span class="m-nav__link-wrap">
+                                                                                <span class="m-nav__link-text">Thông Tin Cá Nhân</span>
+                                                                            </span>
+                                                                        </span>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="m-nav__item">
+                                                                    <a href="@Url.Action("ChangePassword","Admin")" class="m-nav__link">
+                                                                        <i class="m-nav__link-icon flaticon-share"></i>
+                                                                        <span class="m-nav__link-text">Thay Đổi Mật Khẩu</span>
+                                                                    </a>
+                                                                </li>
+                                                                <li class="m-nav__separator m-nav__separator--fit">
+                                                                </li>
+                                                                <li class="m-nav__item">
+                                                                    <a href="@Url.Action("Logout","Admin")" class="btn m-btn--pill  btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder">Đăng Xuất</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body">
+
+            <button class="m-aside-left-close  m-aside-left-close--skin-dark " id="m_aside_left_close_btn"><i class="la la-close"></i></button>
+            <div id="m_aside_left" class="m-grid__item	m-aside-left  m-aside-left--skin-dark ">
+
+                <div id="m_ver_menu" class="m-aside-menu m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark m-scroller ps ps--active-y" m-menu-vertical="1" m-menu-scrollable="1" m-menu-dropdown-timeout="500" style="position: relative; height: 388px; overflow: hidden;">
+                    <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
+                        <li class="m-menu__item  m-menu__item--active" aria-haspopup="true">
+                            <a href="@Url.Action("Index","Admin")" class="m-menu__link ">
+                                <i class="m-menu__link-icon flaticon-buildings"></i><span class="m-menu__link-title">
+                                    <span class="m-menu__link-wrap">
+                                        <span class="m-menu__link-text">Trang Chủ</span>
+                                    </span>
+                            </a>
+                        </li>
+                        <li class="m-menu__section ">
+                            <h4 class="m-menu__section-text">Components</h4>
+                            <i class="m-menu__section-icon flaticon-more-v2"></i>
+                        </li>
+
+
+                        <li class="m-menu__item " aria-haspopup="true"><a href="@Url.Action("GetDoctor","Admin")" class="m-menu__link "><i class="m-menu__link-icon flaticon-users-1"><span></span></i><span class="m-menu__link-text">Thành Viên</span></a></li>
+                        <li class="m-menu__item " aria-haspopup="true"><a href="@Url.Action("GetSpecialize","Admin")" class="m-menu__link "><i class="m-menu__link-icon flaticon-menu-2"><span></span></i><span class="m-menu__link-text">Chuyên Môn</span></a></li>
+                        <li class="m-menu__item " aria-haspopup="true"><a href="@Url.Action("GetTopic","Admin")" class="m-menu__link "><i class="m-menu__link-icon flaticon-menu-2"><span></span></i><span class="m-menu__link-text">Chủ Đề</span></a></li>
+                        <li class="m-menu__item " aria-haspopup="true"><a href="@Url.Action("GetPost","Admin")" class="m-menu__link "><i class="m-menu__link-icon flaticon-list"><span></span></i><span class="m-menu__link-text">Bài Đăng</span></a></li>
+                        <li class="m-menu__item " aria-haspopup="true"><a href="@Url.Action("Login","Admin")" class="m-menu__link "><i class="m-menu__link-icon flaticon-logout"><span></span></i><span class="m-menu__link-text">Đăng Xuất</span></a></li>
+
+                    </ul>
+                    <div class="ps__rail-x" style="left: 0px; bottom: -221px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 221px; height: 388px; right: 4px;"><div class="ps__thumb-y" tabindex="0" style="top: 141px; height: 247px;"></div></div>
+                </div>
+
+            </div>
+
+            <div class="m-grid__item m-grid__item--fluid m-wrapper">
+
+
+                @RenderBody()
+
+            </div>
+        </div>
+
+        <footer class="m-grid__item	m-footer">
+            <div class="m-container m-container--fluid m-container--full-height m-page__container">
+                <div class="m-stack m-stack--flex-tablet-and-mobile m-stack--ver m-stack--desktop">
+                    <div class="m-stack__item m-stack__item--left m-stack__item--middle m-stack__item--last">
+                        <span class="m-footer__copyright">
+                            2017 © design theme by <a href="https://www.facebook.com/groups/300847570561359/?ref=bookmarks" class="m-link">V2 team</a>
+                        </span>
+                    </div>
+                    
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <div id="m_quick_sidebar" class="m-quick-sidebar m-quick-sidebar--tabbed m-quick-sidebar--skin-light" style="">
+        <div class="m-quick-sidebar__content">
+            <span id="m_quick_sidebar_close" class="m-quick-sidebar__close"><i class="la la-close"></i></span>
+            <ul id="m_quick_sidebar_tabs" class="nav nav-tabs m-tabs m-tabs-line m-tabs-line--brand" role="tablist">
+                <li class="nav-item m-tabs__item">
+                    <a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_quick_sidebar_tabs_messenger" role="tab">Messages</a>
+                </li>
+                <li class="nav-item m-tabs__item">
+                    <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_quick_sidebar_tabs_settings" role="tab">Settings</a>
+                </li>
+                <li class="nav-item m-tabs__item">
+                    <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_quick_sidebar_tabs_logs" role="tab">Logs</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="m_quick_sidebar_tabs_messenger" role="tabpanel">
+                    <div class="m-messenger m-messenger--message-arrow m-messenger--skin-light">
+                        <div class="m-messenger__messages m-scrollable m-scroller ps ps--active-y" style="height: 206px; overflow: hidden;">
+                            <div class="m-messenger__wrapper">
+                                <div class="m-messenger__message m-messenger__message--in">
+                                    <div class="m-messenger__message-pic">
+                                        <img src="~/Content/cssAdmin/app/media/img//users/user3.jpg" alt="">
+                                    </div>
+                                    <div class="m-messenger__message-body">
+                                        <div class="m-messenger__message-arrow"></div>
+                                        <div class="m-messenger__message-content">
+                                            <div class="m-messenger__message-username">
+                                                Megan wrote
+                                            </div>
+                                            <div class="m-messenger__message-text">
+                                                Hi Bob. What time will be the meeting ?
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-messenger__wrapper">
+                                <div class="m-messenger__message m-messenger__message--out">
+                                    <div class="m-messenger__message-body">
+                                        <div class="m-messenger__message-arrow"></div>
+                                        <div class="m-messenger__message-content">
+                                            <div class="m-messenger__message-text">
+                                                Hi Megan. It's at 2.30PM
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-messenger__wrapper">
+                                <div class="m-messenger__message m-messenger__message--in">
+                                    <div class="m-messenger__message-pic">
+                                        <img src="~/Content/cssAdmin/app/media/img//users/user3.jpg" alt="">
+                                    </div>
+                                    <div class="m-messenger__message-body">
+                                        <div class="m-messenger__message-arrow"></div>
+                                        <div class="m-messenger__message-content">
+                                            <div class="m-messenger__message-username">
+                                                Megan wrote
+                                            </div>
+                                            <div class="m-messenger__message-text">
+                                                Will the development team be joining ?
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-messenger__wrapper">
+                                <div class="m-messenger__message m-messenger__message--out">
+                                    <div class="m-messenger__message-body">
+                                        <div class="m-messenger__message-arrow"></div>
+                                        <div class="m-messenger__message-content">
+                                            <div class="m-messenger__message-text">
+                                                Yes sure. I invited them as well
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-messenger__datetime">2:30PM</div>
+                            <div class="m-messenger__wrapper">
+                                <div class="m-messenger__message m-messenger__message--in">
+                                    <div class="m-messenger__message-pic">
+                                        <img src="~/Content/cssAdmin/app/media/img//users/user3.jpg" alt="">
+                                    </div>
+                                    <div class="m-messenger__message-body">
+                                        <div class="m-messenger__message-arrow"></div>
+                                        <div class="m-messenger__message-content">
+                                            <div class="m-messenger__message-username">
+                                                Megan wrote
+                                            </div>
+                                            <div class="m-messenger__message-text">
+                                                Noted. For the Coca-Cola Mobile App project as well ?
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-messenger__wrapper">
+                                <div class="m-messenger__message m-messenger__message--out">
+                                    <div class="m-messenger__message-body">
+                                        <div class="m-messenger__message-arrow"></div>
+                                        <div class="m-messenger__message-content">
+                                            <div class="m-messenger__message-text">
+                                                Yes, sure.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-messenger__wrapper">
+                                <div class="m-messenger__message m-messenger__message--out">
+                                    <div class="m-messenger__message-body">
+                                        <div class="m-messenger__message-arrow"></div>
+                                        <div class="m-messenger__message-content">
+                                            <div class="m-messenger__message-text">
+                                                Please also prepare the quotation for the Loop CRM project as well.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-messenger__datetime">3:15PM</div>
+                            <div class="m-messenger__wrapper">
+                                <div class="m-messenger__message m-messenger__message--in">
+                                    <div class="m-messenger__message-no-pic m--bg-fill-danger">
+                                        <span>M</span>
+                                    </div>
+                                    <div class="m-messenger__message-body">
+                                        <div class="m-messenger__message-arrow"></div>
+                                        <div class="m-messenger__message-content">
+                                            <div class="m-messenger__message-username">
+                                                Megan wrote
+                                            </div>
+                                            <div class="m-messenger__message-text">
+                                                Noted. I will prepare it.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-messenger__wrapper">
+                                <div class="m-messenger__message m-messenger__message--out">
+                                    <div class="m-messenger__message-body">
+                                        <div class="m-messenger__message-arrow"></div>
+                                        <div class="m-messenger__message-content">
+                                            <div class="m-messenger__message-text">
+                                                Thanks Megan. I will see you later.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="m-messenger__wrapper">
+                                <div class="m-messenger__message m-messenger__message--in">
+                                    <div class="m-messenger__message-pic">
+                                        <img src="~/Content/cssAdmin/app/media/img//users/user3.jpg" alt="">
+                                    </div>
+                                    <div class="m-messenger__message-body">
+                                        <div class="m-messenger__message-arrow"></div>
+                                        <div class="m-messenger__message-content">
+                                            <div class="m-messenger__message-username">
+                                                Megan wrote
+                                            </div>
+                                            <div class="m-messenger__message-text">
+                                                Sure. See you in the meeting soon.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 206px; right: 4px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 43px;"></div></div>
+                        </div>
+                        <div class="m-messenger__seperator"></div>
+                        <div class="m-messenger__form">
+                            <div class="m-messenger__form-controls">
+                                <input type="text" name="" placeholder="Type here..." class="m-messenger__form-input">
+                            </div>
+                            <div class="m-messenger__form-tools">
+                                <a href="" class="m-messenger__form-attachment">
+                                    <i class="la la-paperclip"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="m_quick_sidebar_tabs_settings" role="tabpanel">
+                    <div class="m-list-settings m-scrollable m-scroller ps" style="height: 316px; overflow: hidden;">
+                        <div class="m-list-settings__group">
+                            <div class="m-list-settings__heading">General Settings</div>
+                            <div class="m-list-settings__item">
+                                <span class="m-list-settings__item-label">Email Notifications</span>
+                                <span class="m-list-settings__item-control">
+                                    <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
+                                        <label>
+                                            <input type="checkbox" checked="checked" name="">
+                                            <span></span>
+                                        </label>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="m-list-settings__item">
+                                <span class="m-list-settings__item-label">Site Tracking</span>
+                                <span class="m-list-settings__item-control">
+                                    <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
+                                        <label>
+                                            <input type="checkbox" name="">
+                                            <span></span>
+                                        </label>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="m-list-settings__item">
+                                <span class="m-list-settings__item-label">SMS Alerts</span>
+                                <span class="m-list-settings__item-control">
+                                    <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
+                                        <label>
+                                            <input type="checkbox" name="">
+                                            <span></span>
+                                        </label>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="m-list-settings__item">
+                                <span class="m-list-settings__item-label">Backup Storage</span>
+                                <span class="m-list-settings__item-control">
+                                    <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
+                                        <label>
+                                            <input type="checkbox" name="">
+                                            <span></span>
+                                        </label>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="m-list-settings__item">
+                                <span class="m-list-settings__item-label">Audit Logs</span>
+                                <span class="m-list-settings__item-control">
+                                    <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
+                                        <label>
+                                            <input type="checkbox" checked="checked" name="">
+                                            <span></span>
+                                        </label>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="m-list-settings__group">
+                            <div class="m-list-settings__heading">System Settings</div>
+                            <div class="m-list-settings__item">
+                                <span class="m-list-settings__item-label">System Logs</span>
+                                <span class="m-list-settings__item-control">
+                                    <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
+                                        <label>
+                                            <input type="checkbox" name="">
+                                            <span></span>
+                                        </label>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="m-list-settings__item">
+                                <span class="m-list-settings__item-label">Error Reporting</span>
+                                <span class="m-list-settings__item-control">
+                                    <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
+                                        <label>
+                                            <input type="checkbox" name="">
+                                            <span></span>
+                                        </label>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="m-list-settings__item">
+                                <span class="m-list-settings__item-label">Applications Logs</span>
+                                <span class="m-list-settings__item-control">
+                                    <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
+                                        <label>
+                                            <input type="checkbox" name="">
+                                            <span></span>
+                                        </label>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="m-list-settings__item">
+                                <span class="m-list-settings__item-label">Backup Servers</span>
+                                <span class="m-list-settings__item-control">
+                                    <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
+                                        <label>
+                                            <input type="checkbox" checked="checked" name="">
+                                            <span></span>
+                                        </label>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="m-list-settings__item">
+                                <span class="m-list-settings__item-label">Audit Logs</span>
+                                <span class="m-list-settings__item-control">
+                                    <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
+                                        <label>
+                                            <input type="checkbox" name="">
+                                            <span></span>
+                                        </label>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 4px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div></div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="m_quick_sidebar_tabs_logs" role="tabpanel">
+                    <div class="m-list-timeline m-scrollable m-scroller ps" style="height: 316px; overflow: hidden;">
+                        <div class="m-list-timeline__group">
+                            <div class="m-list-timeline__heading">
+                                System Logs
+                            </div>
+                            <div class="m-list-timeline__items">
+                                <div class="m-list-timeline__item">
+                                    <span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
+                                    <a href="" class="m-list-timeline__text">12 new users registered <span class="m-badge m-badge--warning m-badge--wide">important</span></a>
+                                    <span class="m-list-timeline__time">Just now</span>
+                                </div>
+                                <div class="m-list-timeline__item">
+                                    <span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
+                                    <a href="" class="m-list-timeline__text">System shutdown</a>
+                                    <span class="m-list-timeline__time">11 mins</span>
+                                </div>
+                                <div class="m-list-timeline__item">
+                                    <span class="m-list-timeline__badge m-list-timeline__badge--state-danger"></span>
+                                    <a href="" class="m-list-timeline__text">New invoice received</a>
+                                    <span class="m-list-timeline__time">20 mins</span>
+                                </div>
+                                <div class="m-list-timeline__item">
+                                    <span class="m-list-timeline__badge m-list-timeline__badge--state-warning"></span>
+                                    <a href="" class="m-list-timeline__text">Database overloaded 89% <span class="m-badge m-badge--success m-badge--wide">resolved</span></a>
+                                    <span class="m-list-timeline__time">1 hr</span>
+                                </div>
+                                <div class="m-list-timeline__item">
+                                    <span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
+                                    <a href="" class="m-list-timeline__text">System error</a>
+                                    <span class="m-list-timeline__time">2 hrs</span>
+                                </div>
+                                <div class="m-list-timeline__item">
+                                    <span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
+                                    <a href="" class="m-list-timeline__text">Production server down <span class="m-badge m-badge--danger m-badge--wide">pending</span></a>
+                                    <span class="m-list-timeline__time">3 hrs</span>
+                                </div>
+                                <div class="m-list-timeline__item">
+                                    <span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
+                                    <a href="" class="m-list-timeline__text">Production server up</a>
+                                    <span class="m-list-timeline__time">5 hrs</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-list-timeline__group">
+                            <div class="m-list-timeline__heading">
+                                Applications Logs
+                            </div>
+                            <div class="m-list-timeline__items">
+                                <div class="m-list-timeline__item">
+                                    <span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
+                                    <a href="" class="m-list-timeline__text">New order received <span class="m-badge m-badge--info m-badge--wide">urgent</span></a>
+                                    <span class="m-list-timeline__time">7 hrs</span>
+                                </div>
+                                <div class="m-list-timeline__item">
+                                    <span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
+                                    <a href="" class="m-list-timeline__text">12 new users registered</a>
+                                    <span class="m-list-timeline__time">Just now</span>
+                                </div>
+                                <div class="m-list-timeline__item">
+                                    <span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
+                                    <a href="" class="m-list-timeline__text">System shutdown</a>
+                                    <span class="m-list-timeline__time">11 mins</span>
+                                </div>
+                                <div class="m-list-timeline__item">
+                                    <span class="m-list-timeline__badge m-list-timeline__badge--state-danger"></span>
+                                    <a href="" class="m-list-timeline__text">New invoices received</a>
+                                    <span class="m-list-timeline__time">20 mins</span>
+                                </div>
+                                <div class="m-list-timeline__item">
+                                    <span class="m-list-timeline__badge m-list-timeline__badge--state-warning"></span>
+                                    <a href="" class="m-list-timeline__text">Database overloaded 89%</a>
+                                    <span class="m-list-timeline__time">1 hr</span>
+                                </div>
+                                <div class="m-list-timeline__item">
+                                    <span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
+                                    <a href="" class="m-list-timeline__text">System error <span class="m-badge m-badge--info m-badge--wide">pending</span></a>
+                                    <span class="m-list-timeline__time">2 hrs</span>
+                                </div>
+                                <div class="m-list-timeline__item">
+                                    <span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
+                                    <a href="" class="m-list-timeline__text">Production server down</a>
+                                    <span class="m-list-timeline__time">3 hrs</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-list-timeline__group">
+                            <div class="m-list-timeline__heading">
+                                Server Logs
+                            </div>
+                            <div class="m-list-timeline__items">
+                                <div class="m-list-timeline__item">
+                                    <span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
+                                    <a href="" class="m-list-timeline__text">Production server up</a>
+                                    <span class="m-list-timeline__time">5 hrs</span>
+                                </div>
+                                <div class="m-list-timeline__item">
+                                    <span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
+                                    <a href="" class="m-list-timeline__text">New order received</a>
+                                    <span class="m-list-timeline__time">7 hrs</span>
+                                </div>
+                                <div class="m-list-timeline__item">
+                                    <span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
+                                    <a href="" class="m-list-timeline__text">12 new users registered</a>
+                                    <span class="m-list-timeline__time">Just now</span>
+                                </div>
+                                <div class="m-list-timeline__item">
+                                    <span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
+                                    <a href="" class="m-list-timeline__text">System shutdown</a>
+                                    <span class="m-list-timeline__time">11 mins</span>
+                                </div>
+                                <div class="m-list-timeline__item">
+                                    <span class="m-list-timeline__badge m-list-timeline__badge--state-danger"></span>
+                                    <a href="" class="m-list-timeline__text">New invoice received</a>
+                                    <span class="m-list-timeline__time">20 mins</span>
+                                </div>
+                                <div class="m-list-timeline__item">
+                                    <span class="m-list-timeline__badge m-list-timeline__badge--state-warning"></span>
+                                    <a href="" class="m-list-timeline__text">Database overloaded 89%</a>
+                                    <span class="m-list-timeline__time">1 hr</span>
+                                </div>
+                                <div class="m-list-timeline__item">
+                                    <span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
+                                    <a href="" class="m-list-timeline__text">System error</a>
+                                    <span class="m-list-timeline__time">2 hrs</span>
+                                </div>
+                                <div class="m-list-timeline__item">
+                                    <span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
+                                    <a href="" class="m-list-timeline__text">Production server down</a>
+                                    <span class="m-list-timeline__time">3 hrs</span>
+                                </div>
+                                <div class="m-list-timeline__item">
+                                    <span class="m-list-timeline__badge m-list-timeline__badge--state-success"></span>
+                                    <a href="" class="m-list-timeline__text">Production server up</a>
+                                    <span class="m-list-timeline__time">5 hrs</span>
+                                </div>
+                                <div class="m-list-timeline__item">
+                                    <span class="m-list-timeline__badge m-list-timeline__badge--state-info"></span>
+                                    <a href="" class="m-list-timeline__text">New order received</a>
+                                    <span class="m-list-timeline__time">1117 hrs</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 4px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="m_scroll_top" class="m-scroll-top">
+        <i class="la la-arrow-up"></i>
+    </div>
+
+    <script src="~/Content/cssAdmin/vendors/base/vendors.bundle.js" type="text/javascript"></script>
+    <script src="~/Content/cssAdmin/demo/default/base/scripts.bundle.js" type="text/javascript"></script>
+
+    <script src="~/Content/cssAdmin/vendors/custom/fullcalendar/fullcalendar.bundle.js" type="text/javascript"></script>
+
+    <script src="~/Content/cssAdmin/app/js/dashboard.js" type="text/javascript"></script>
+
+    <div class="daterangepicker dropdown-menu ltr opensleft" style="display: none; top: 142px; right: 29.9998px; left: auto;"><div class="calendar left"><div class="daterangepicker_input"><input class="input-mini form-control active" type="text" name="daterangepicker_start" value=""><i class="fa fa-calendar glyphicon glyphicon-calendar"></i><div class="calendar-time" style="display: none;"><div></div><i class="fa fa-clock-o glyphicon glyphicon-time"></i></div></div><div class="calendar-table"><table class="table-condensed"><thead><tr><th class="prev available"><i class="fa fa-chevron-left glyphicon glyphicon-chevron-left"></i></th><th colspan="5" class="month">Jun 2019</th><th></th></tr><tr><th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th></tr></thead><tbody><tr><td class="weekend off available" data-title="r0c0">26</td><td class="off available" data-title="r0c1">27</td><td class="off available" data-title="r0c2">28</td><td class="off available" data-title="r0c3">29</td><td class="off available" data-title="r0c4">30</td><td class="off available" data-title="r0c5">31</td><td class="weekend available" data-title="r0c6">1</td></tr><tr><td class="weekend available" data-title="r1c0">2</td><td class="available" data-title="r1c1">3</td><td class="available" data-title="r1c2">4</td><td class="available" data-title="r1c3">5</td><td class="available" data-title="r1c4">6</td><td class="available" data-title="r1c5">7</td><td class="weekend available" data-title="r1c6">8</td></tr><tr><td class="weekend available" data-title="r2c0">9</td><td class="available" data-title="r2c1">10</td><td class="available" data-title="r2c2">11</td><td class="available" data-title="r2c3">12</td><td class="available" data-title="r2c4">13</td><td class="available" data-title="r2c5">14</td><td class="weekend available" data-title="r2c6">15</td></tr><tr><td class="weekend available" data-title="r3c0">16</td><td class="available" data-title="r3c1">17</td><td class="available" data-title="r3c2">18</td><td class="available" data-title="r3c3">19</td><td class="available" data-title="r3c4">20</td><td class="available" data-title="r3c5">21</td><td class="weekend available" data-title="r3c6">22</td></tr><tr><td class="weekend available" data-title="r4c0">23</td><td class="available" data-title="r4c1">24</td><td class="available" data-title="r4c2">25</td><td class="today active start-date active end-date available" data-title="r4c3">26</td><td class="available" data-title="r4c4">27</td><td class="available" data-title="r4c5">28</td><td class="weekend available" data-title="r4c6">29</td></tr><tr><td class="weekend available" data-title="r5c0">30</td><td class="off available" data-title="r5c1">1</td><td class="off available" data-title="r5c2">2</td><td class="off available" data-title="r5c3">3</td><td class="off available" data-title="r5c4">4</td><td class="off available" data-title="r5c5">5</td><td class="weekend off available" data-title="r5c6">6</td></tr></tbody></table></div></div><div class="calendar right"><div class="daterangepicker_input"><input class="input-mini form-control" type="text" name="daterangepicker_end" value=""><i class="fa fa-calendar glyphicon glyphicon-calendar"></i><div class="calendar-time" style="display: none;"><div></div><i class="fa fa-clock-o glyphicon glyphicon-time"></i></div></div><div class="calendar-table"><table class="table-condensed"><thead><tr><th></th><th colspan="5" class="month">Jul 2019</th><th class="next available"><i class="fa fa-chevron-right glyphicon glyphicon-chevron-right"></i></th></tr><tr><th>Su</th><th>Mo</th><th>Tu</th><th>We</th><th>Th</th><th>Fr</th><th>Sa</th></tr></thead><tbody><tr><td class="weekend off available" data-title="r0c0">30</td><td class="available" data-title="r0c1">1</td><td class="available" data-title="r0c2">2</td><td class="available" data-title="r0c3">3</td><td class="available" data-title="r0c4">4</td><td class="available" data-title="r0c5">5</td><td class="weekend available" data-title="r0c6">6</td></tr><tr><td class="weekend available" data-title="r1c0">7</td><td class="available" data-title="r1c1">8</td><td class="available" data-title="r1c2">9</td><td class="available" data-title="r1c3">10</td><td class="available" data-title="r1c4">11</td><td class="available" data-title="r1c5">12</td><td class="weekend available" data-title="r1c6">13</td></tr><tr><td class="weekend available" data-title="r2c0">14</td><td class="available" data-title="r2c1">15</td><td class="available" data-title="r2c2">16</td><td class="available" data-title="r2c3">17</td><td class="available" data-title="r2c4">18</td><td class="available" data-title="r2c5">19</td><td class="weekend available" data-title="r2c6">20</td></tr><tr><td class="weekend available" data-title="r3c0">21</td><td class="available" data-title="r3c1">22</td><td class="available" data-title="r3c2">23</td><td class="available" data-title="r3c3">24</td><td class="available" data-title="r3c4">25</td><td class="available" data-title="r3c5">26</td><td class="weekend available" data-title="r3c6">27</td></tr><tr><td class="weekend available" data-title="r4c0">28</td><td class="available" data-title="r4c1">29</td><td class="available" data-title="r4c2">30</td><td class="available" data-title="r4c3">31</td><td class="off available" data-title="r4c4">1</td><td class="off available" data-title="r4c5">2</td><td class="weekend off available" data-title="r4c6">3</td></tr><tr><td class="weekend off available" data-title="r5c0">4</td><td class="off available" data-title="r5c1">5</td><td class="off available" data-title="r5c2">6</td><td class="off available" data-title="r5c3">7</td><td class="off available" data-title="r5c4">8</td><td class="off available" data-title="r5c5">9</td><td class="weekend off available" data-title="r5c6">10</td></tr></tbody></table></div></div><div class="ranges"><ul><li data-range-key="Today" class="active">Today</li><li data-range-key="Yesterday">Yesterday</li><li data-range-key="Last 7 Days">Last 7 Days</li><li data-range-key="Last 30 Days">Last 30 Days</li><li data-range-key="This Month">This Month</li><li data-range-key="Last Month">Last Month</li><li data-range-key="Custom Range">Custom Range</li></ul><div class="range_inputs"><button class="applyBtn btn btn-sm btn-success" type="button">Apply</button> <button class="cancelBtn btn btn-sm btn-default" type="button">Cancel</button></div></div></div>
+</body>
+
+</html>
+@RenderSection("scripts", required: false)

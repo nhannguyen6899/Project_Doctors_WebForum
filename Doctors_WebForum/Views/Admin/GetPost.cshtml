@@ -1,0 +1,162 @@
+﻿@{
+                /**/
+
+                Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@model IPagedList<Doctors_WebForum.Models.ViewModels.PostViewModelAdmin>
+
+@using PagedList.Mvc;
+@using PagedList;
+
+
+<div class="m-subheader ">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="m-subheader__title m-subheader__title--separator">Thành Viên</h3>
+            <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                <li class="m-nav__item m-nav__item--home">
+                    <a href="@Url.Action("Index", "Admin")" class="m-nav__link m-nav__link--icon">
+                        <i class="m-nav__link-icon la la-home"></i>
+                    </a>
+                </li>
+                <li class="m-nav__separator">-</li>
+                <li class="m-nav__separator"></li>
+                <li class="m-nav__item">
+                    <a href="@Url.Action("GetPost", "Admin")" class="m-nav__link">
+                        <i class="m-nav__link-icon flaticon-list"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div>
+
+        </div>
+    </div>
+</div>
+
+<div class="m-content">
+
+    <div class="m-portlet m-portlet--mobile">
+        <div class="m-portlet__head">
+            <div class="m-portlet__head-caption">
+                <div class="m-portlet__head-title">
+                    <h3 class="m-portlet__head-text">
+                        Bài viết
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="m-portlet__body">
+
+            <!--begin: Datatable -->
+            <div id="m_table_1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <div class="row align-items-center">
+                    <div class="col-xl-8 order-2 order-xl-1">
+                        @using (@Html.BeginForm("GetPost", "Admin", FormMethod.Get))
+                        {
+                            <div class="form-group m-form__group row align-items-center">
+                                <div class="col-md-4">
+                                    <div class="m-input-icon m-input-icon--left">
+                                        @Html.TextBox("Search", null, new { @class = "form-control m-input", @placeholder = "Tìm Kiếm...", id = "generalSearch" })
+                                        <span class="m-input-icon__icon m-input-icon__icon--left">
+                                            <span><i class="la la-search"></i></span>
+                                        </span>
+
+                                    </div>
+                                </div>
+                                <input type="submit" value="Tìm Kiếm" />
+                            </div>
+                        }
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-striped- table-bordered table-hover table-checkable dataTable no-footer" id="m_table_1" aria-describedby="m_table_1_info" role="grid">
+                            <thead>
+                                <tr role="row">
+                                    <th class="sorting" tabindex="0" aria-controls="m_table_1" rowspan="1" colspan="1" aria-label="Order ID: activate to sort column ascending" style="width: 38.25px;">STT </th>
+                                    <th class="sorting" tabindex="0" aria-controls="m_table_1" rowspan="1" colspan="1" aria-label="Order ID: activate to sort column ascending" style="width: 38.25px;">Tên Bài Viết </th>
+                                    <th class="sorting" tabindex="0" aria-controls="m_table_1" rowspan="1" colspan="1" aria-label="Country: activate to sort column ascending" style="width: 68.25px;">Nội Dung Bài Viết</th>
+                                    <th class="sorting" tabindex="0" aria-controls="m_table_1" rowspan="1" colspan="1" aria-label="Ship City: activate to sort column ascending" style="width: 95.25px;">Mô tả</th>
+                                    <th class="sorting" tabindex="0" aria-controls="m_table_1" rowspan="1" colspan="1" aria-label="Ship Address: activate to sort column ascending" style="width: 113.25px;">Thích</th>
+                                    <th class="sorting" tabindex="0" aria-controls="m_table_1" rowspan="1" colspan="1" aria-label="Company Name: activate to sort column ascending" style="width: 132.25px;">Chủ Đề</th>
+                                    <th class="sorting" tabindex="0" aria-controls="m_table_1" rowspan="1" colspan="1" aria-label="Type: activate to sort column ascending" style="width: 32.25px;">Ngày Tạo </th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Actions" style="width: 69.5px;">Hành Động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @{
+                                    int stt = 0;
+                                    foreach (var item in Model)
+                                    {
+                                        stt = stt + 1;
+                                        <tr role="row" class="odd">
+                                            <td>@stt</td>
+                                            <td>@item.PostName</td>
+                                            <td>@Html.Raw(item.PostContent)</td>
+                                            <td>@item.Description</td>
+                                            <td>
+                                                @{
+                                                    int countLike = 0;
+                                                    foreach (var likePost in ViewBag.listLikePost)
+                                                    {
+                                                        if (likePost.Post_ID == item.Id && likePost.StatusLike == true)
+                                                        {
+                                                            countLike = countLike + 1;
+                                                        }
+                                                    }
+                                                    @countLike
+                                                }
+                                            </td>
+                                            <td>@item.TopicName</td>
+                                            <td>@item.CreateDate</td>
+                                            <td nowrap="">
+                                                <span class="dropdown">
+                                                    <a href="@Url.Action("DeletePost", "Admin", new { id = item.Id })" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Xóa">
+                                                        <i class="la la-trash"></i>
+                                                    </a>
+                                                </span>
+
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div><div class="row">
+                    <div class="col-sm-12 col-md-4"></div>
+                    <div class="col-sm-12 col-md-8">
+                        <div class="dataTables_paginate paging_simple_numbers">
+                            @Html.PagedListPager(Model, i => Url.Action("GetPost", "Admin", new { i, searcch = Request.QueryString["Search"] }),
+                             new PagedListRenderOptions
+                             {
+                                 LiElementClasses = new string[] { "paginate_button page-item previous disabled" },
+                                 Display = PagedListDisplayMode.IfNeeded,
+                                 DisplayPageCountAndCurrentLocation = true,
+                                 PageCountAndCurrentLocationFormat = "Trang {0} / {1}.",
+                             })
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- END EXAMPLE TABLE PORTLET-->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

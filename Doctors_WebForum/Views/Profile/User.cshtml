@@ -1,0 +1,329 @@
+﻿@using PagedList.Mvc;
+@model PagedList.PagedList<Doctors_WebForum.Models.ViewModels.PostViewModel>
+
+<script src="~/Content/assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
+
+<style>
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 250px;
+        margin: auto;
+        text-align: center;
+        font-family: arial;
+    }
+
+    .title {
+        color: grey;
+        font-size: 18px;
+    }
+
+    button {
+        border: none;
+        outline: 0;
+        display: inline-block;
+        padding: 8px;
+        color: white;
+        background-color: #000;
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+        font-size: 18px;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+        button:hover, a:hover {
+            opacity: 0.7;
+        }
+</style>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 breadcrumbf">
+            <a href="#">Trang cá nhân</a>
+        </div>
+    </div>
+</div>
+
+@foreach (var doctor in ViewBag.detailProfile)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3">
+                <div class="sidebarblock">
+                    <div class="card">
+                        @if (doctor.Image == null)
+                        {
+                            <img src="~/Content/images/avatar-user.png" alt="John" style="width:100%; height: 250px;">
+                        }
+                        else
+                        {
+                            <img src="~/Content/images/@doctor.Image" alt="John" style="width: 100%; height: 250px;">
+                        }
+                        <h4>@doctor.Firstname @doctor.Lastname</h4>
+                        <p class="title">CEO & Founder, Example</p>
+                    </div>
+                    <div class="divline"></div>
+                    <div class="blocktxt">
+                        <ul class="cats">
+                            <li>Đã tham gia:<span class="badge pull-right"> @doctor.DayCreateDate/@doctor.MonthCreateDate/@doctor.YearCreateDate</span></li>
+                            <li>
+                                Bài viết:<span class="badge pull-right">
+                                    @{
+                                        int countPost = 0;
+                                        foreach (var post in ViewBag.listPost)
+                                        {
+                                            if (doctor.Id == post.Doctor_ID)
+                                            {
+                                                countPost = countPost + 1;
+                                            }
+                                        }
+                                        @countPost
+                                    }
+                                </span>
+                            </li>
+                            <li>Lượt thích: <span class="badge pull-right">
+                            @{
+                                int countlikes = 0;
+                                foreach (var post in ViewBag.listPost)
+                                {
+                                    if (doctor.Id == post.Doctor_ID)
+                                    {
+                                        foreach (var likePost in ViewBag.listLikePost)
+                                        {
+                                            if (likePost.Post_ID == post.Id && likePost.StatusLike == true)
+                                            {
+                                                countlikes = countlikes + 1;
+                                            }
+                                        }
+
+                                    }
+                                }
+                                @countlikes
+                            }
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="post">
+                    <div class="postinfotop">
+                        <h2>
+                            @doctor.Firstname @doctor.Lastname
+                        </h2>
+                    </div>
+                    <div class="accsection">
+                        <div class="acccap">
+                            <div class="userinfo pull-left">
+
+                            </div>
+                        </div>
+                        @*<center>*@
+                        <div class="topwrap">
+                            <div class="posttext" style="margin-left:75px">
+                                <div class="col-lg-12">
+                                    <ul class="nav nav-pills nav-fill" role="tablist">
+
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-toggle="tab" href="#m_tabs_5_1">Tường</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#m_tabs_5_2">Thông tin cá nhân</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="m_tabs_5_1" role="tabpanel">
+                                        @foreach (var item in Model)
+                                        {
+                                            <div class="col-lg-12">
+                                                <div class="post" style="background-color:aliceblue">
+                                                    <div class="wrap-ut pull-left">
+                                                        <div class="userinfo pull-left">
+                                                            <div class="avatar">
+                                                                @if (item.ImageDoctor != null)
+                                                                {
+                                                                    <a href="@Url.Action("User", "Profile", new {id = item.Doctor_ID})" title="profile"><img height="37" width="37" src="~/Content/images/@item.ImageDoctor" alt="" /></a>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <a href="@Url.Action("User", "Profile", new {id = item.Doctor_ID})" title="profile"><img height="37" width="37" src="~/Content/images/user.png" alt="" /></a>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        <div class="posttext pull-left">
+                                                            <a href="@Url.Action("DetailPost", "Post", new {id = item.Id})">@item.PostName</a>
+                                                            <p style="font-size: 12px"><a href="@Url.Action("User", "Profile", new {id = item.Doctor_ID})" title="profile">@item.DoctorName</a>, @item.CreateDate</p>
+                                                        </div>
+
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                    <div class="postinfo pull-left">
+                                                        <div class="comments">
+                                                            <div class="commentbg">
+                                                                @{
+                                                                    int countComment = 0;
+                                                                    foreach (var comment in ViewBag.listComment)
+                                                                    {
+                                                                        if (comment.Post_ID == item.Id)
+                                                                        {
+                                                                            countComment = countComment + 1;
+                                                                        }
+                                                                    }
+                                                                    @countComment
+                                                                }
+                                                                <div class="mark"></div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="views"><i class="fa fa-eye"></i> 1,568</div>
+                                                        <div class="time">
+                                                            <i class="fa fa-thumbs-o-up"></i>
+                                                            @{
+                                                                int countLike = 0;
+                                                                foreach (var likePost in ViewBag.listLikePost)
+                                                                {
+                                                                    if (likePost.Post_ID == item.Id && likePost.StatusLike == true)
+                                                                    {
+                                                                        countLike = countLike + 1;
+                                                                    }
+                                                                }
+                                                                @countLike
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                            </div>
+
+                                        }
+                                    </div>
+
+                                    <div class="tab-pane" id="m_tabs_5_2" role="tabpanel">
+                                        <div class="col-lg-12" style="background-color:aliceblue">
+                                            <div class="row">
+                                                <div class="col-lg-2 col-md-2">
+                                                    <h5 class="text-info">Họ tên:</h5>
+                                                </div>
+                                                <div class="col-lg-1 col-md-2">
+                                                    <h5><code>@doctor.Firstname @doctor.Lastname</code></h5>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-2 col-md-2">
+                                                    <h5 class="text-info">Email:</h5>
+                                                </div>
+                                                <div class="col-lg-1 col-md-2">
+                                                    @if (doctor.Email != null)
+                                                    {
+                                                        <h5><code>@doctor.Email</code></h5>
+                                                    }
+                                                    else
+                                                    {
+                                                        <h5><code>------Chưa có thông tin------</code></h5>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-2 col-md-2">
+                                                    <h5 class="text-info">SĐT:</h5>
+                                                </div>
+                                                <div class="col-lg-1 col-md-2">
+                                                    @if (doctor.Phone != 0)
+                                                    {
+                                                        <h5><code>@doctor.Phone</code></h5>
+                                                    }
+                                                    else
+                                                    {
+                                                        <h5><code>------Chưa có thông tin------</code></h5>
+                                                    }
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-2 col-md-2">
+                                                    <h5 class="text-info">Địa chỉ:</h5>
+                                                </div>
+                                                <div class="col-lg-1 col-md-2">
+                                                    @if (doctor.Address != null)
+                                                    {
+                                                        <h5><code>@doctor.Address</code></h5>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <h5><code>------Chưa có thông tin------</code></h5>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-2 col-md-2">
+                                                    <h5 class="text-info">Giới tính:</h5>
+                                                </div>
+                                                <div class="col-lg-1 col-md-2">
+                                                    <h5><code>@doctor.Gender</code></h5>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-2 col-md-2">
+                                                    <h5 class="text-info">Ngày sinh:</h5>
+                                                </div>
+                                                <div class="col-lg-1 col-md-2">
+                                                    <h5><code>@doctor.Day/@doctor.Month/@doctor.Year</code></h5>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="clearfix"></div>
+                                        @if (doctor.Id == Convert.ToInt32(Session["Id"]))
+                                        {
+                                            <div class="postinfobot">
+                                                <div class="row">
+                                                    <div class="col-lg-9"></div>
+                                                    <div class="col-lg-3">
+                                                        <div class="row"><a href="/Profile/Edit/@doctor.Id" class="btn btn-primary">Sửa thông tin cá nhân</a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        @*</center>*@
+                    </div>
+                </div>
+                @*Phân trang*@
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 col-xs-12">
+                            <div class="pull-right">
+                                @*<ul class="paginationforum">*@
+                                @Html.PagedListPager(Model, page => Url.Action("User", new { page = page}), new PagedListRenderOptions
+                           {
+                               //LiElementClasses = new string[] { "paginate_button page-item previous disabled" },
+                               Display = PagedListDisplayMode.IfNeeded,
+                               DisplayPageCountAndCurrentLocation = true,
+                               PageCountAndCurrentLocationFormat = "Trang {0} / {1}.",
+
+                           })
+                                @*</ul>*@
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

@@ -1,0 +1,162 @@
+﻿@{
+                /**/
+
+                Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@model IPagedList<Doctors_WebForum.Models.ViewModels.DoctorViewModelAdmin>
+
+@using PagedList.Mvc;
+@using PagedList;
+
+
+<div class="m-subheader ">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="m-subheader__title m-subheader__title--separator">Thành Viên</h3>
+            <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                <li class="m-nav__item m-nav__item--home">
+                    <a href="@Url.Action("Index","Admin")" class="m-nav__link m-nav__link--icon">
+                        <i class="m-nav__link-icon la la-home"></i>
+                    </a>
+                </li>
+                <li class="m-nav__separator">-</li>
+                <li class="m-nav__separator"></li>
+                <li class="m-nav__item">
+                    <a href="@Url.Action("GetDoctor","Admin")" class="m-nav__link">
+                        <i class="m-nav__link-icon flaticon-users-1" "></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div>
+
+        </div>
+    </div>
+</div>
+
+<div class="m-content">
+
+    <div class="m-portlet m-portlet--mobile">
+        <div class="m-portlet__head">
+            <div class="m-portlet__head-caption">
+                <div class="m-portlet__head-title">
+                    <h3 class="m-portlet__head-text">
+                        Thành Viên
+                    </h3>
+                </div>
+            </div>
+            <div class="m-portlet__head-tools">
+                <ul class="m-portlet__nav">
+                    <li class="m-portlet__nav-item">
+
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="m-portlet__body">
+
+            <!--begin: Datatable -->
+            <div id="m_table_1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <div class="row align-items-center">
+                    <div class="col-xl-8 order-2 order-xl-1">
+                        @using (@Html.BeginForm("GetDoctor", "Admin", FormMethod.Get))
+                        {
+                            <div class="form-group m-form__group row align-items-center">
+                                <div class="col-md-4">
+
+                                    <div class="m-input-icon m-input-icon--left">
+                                        @Html.TextBox("Search", null, new { @class = "form-control m-input", @placeholder = "Tìm Kiếm...", id = "generalSearch" })
+                                        <span class="m-input-icon__icon m-input-icon__icon--left">
+                                            <span><i class="la la-search"></i></span>
+                                        </span>
+
+                                    </div>
+
+
+
+                                </div>
+                                <input type="submit" value="Tìm Kiếm" />
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-striped- table-bordered table-hover table-checkable dataTable no-footer" id="m_table_1" aria-describedby="m_table_1_info" role="grid">
+                            <thead>
+                                <tr role="row">
+                                    <th class="sorting_asc" tabindex="0" aria-controls="m_table_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Record ID: activate to sort column descending" style="width: 46.25px;">STT </th>
+                                    <th class="sorting_asc" tabindex="0" aria-controls="m_table_1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Record ID: activate to sort column descending" style="width: 46.25px;">Họ </th>
+                                    <th class="sorting" tabindex="0" aria-controls="m_table_1" rowspan="1" colspan="1" aria-label="Order ID: activate to sort column ascending" style="width: 38.25px;">Tên </th>
+                                    <th class="sorting" tabindex="0" aria-controls="m_table_1" rowspan="1" colspan="1" aria-label="Country: activate to sort column ascending" style="width: 68.25px;">Số Điện Thoại</th>
+                                    <th class="sorting" tabindex="0" aria-controls="m_table_1" rowspan="1" colspan="1" aria-label="Ship City: activate to sort column ascending" style="width: 95.25px;">Địa Chỉ</th>
+                                    <th class="sorting" tabindex="0" aria-controls="m_table_1" rowspan="1" colspan="1" aria-label="Ship Address: activate to sort column ascending" style="width: 113.25px;">E-mail</th>
+                                    <th class="sorting" tabindex="0" aria-controls="m_table_1" rowspan="1" colspan="1" aria-label="Company Agent: activate to sort column ascending" style="width: 88.25px;">Tài Khoản </th>
+                                    <th class="sorting" tabindex="0" aria-controls="m_table_1" rowspan="1" colspan="1" aria-label="Ship Date: activate to sort column ascending" style="width: 42.25px;">Ngày Sinh</th>
+                                    <th class="sorting" tabindex="0" aria-controls="m_table_1" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 55.25px;">Giới Tính</th>
+                                    <th class="sorting" tabindex="0" aria-controls="m_table_1" rowspan="1" colspan="1" aria-label="Type: activate to sort column ascending" style="width: 32.25px;">Ngày Tạo</th>
+                                    <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="Actions" style="width: 69.5px;">Hành Động</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @{
+                                    int stt = 0;
+                                    foreach (var item in Model)
+                                    {
+                                        stt = stt + 1;
+                                        <tr role="row" class="odd">
+                                            <td>@stt</td>
+                                            <td>@Html.DisplayFor(models => item.Firstname)</td>
+                                            <td>@Html.DisplayFor(models => item.Lastname)</td>
+                                            <td>@Html.DisplayFor(models => item.Phone)</td>
+                                            <td>@Html.DisplayFor(models => item.Address)</td>
+                                            <td>@Html.DisplayFor(models => item.Email)</td>
+                                            <td>@Html.DisplayFor(models => item.Username)</td>
+                                            <td>@Html.DisplayFor(models => item.Birthday)</td>
+                                            <td><span class="m-badge  m-badge--primary m-badge--wide">@Html.DisplayFor(models => item.Gender)</span></td>
+                                            <td>@Html.DisplayFor(models => item.CreateDate)</td>
+                                            <td nowrap="">
+                                                <span class="dropdown">
+                                                    <a href="@Url.Action("DeleteDoc","Admin", new {id = item.Id})" onclick="return confirm('Bạn có chắc chắn muốn xóa thành viên này không?')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Xóa">
+                                                        <i class="la la-trash"></i>
+                                                    </a>
+                                                </span>
+
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div><div class="row">
+                    <div class="col-sm-12 col-md-4"></div>
+                    <div class="col-sm-12 col-md-8">
+                        <div class="dataTables_paginate paging_simple_numbers">
+                            @Html.PagedListPager(Model, i => Url.Action("GetDoctor", "Admin", new { i, searcch = Request.QueryString["Search"] }),
+                             new PagedListRenderOptions
+                             {
+                                 LiElementClasses = new string[] { "paginate_button page-item previous disabled" },
+                                 Display = PagedListDisplayMode.IfNeeded,
+                                 DisplayPageCountAndCurrentLocation = true,
+                                 PageCountAndCurrentLocationFormat = "Trang {0} / {1}.",
+                             })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- END EXAMPLE TABLE PORTLET-->
+</div>
+
+
+
+
+
+
+

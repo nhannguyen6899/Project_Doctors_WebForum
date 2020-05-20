@@ -1,0 +1,653 @@
+﻿@using PagedList.Mvc;
+@model PagedList.PagedList<Doctors_WebForum.Models.ViewModels.CommentViewModel>
+
+@* jquery *@
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 breadcrumbf">
+            <a href="#">Borderlands 2</a> <span class="diviver">&gt;</span> <a href="#">General Discussion</a> <span class="diviver">&gt;</span> <a href="#">Topic Details</a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-9 col-md-9">
+
+            @foreach (var post in ViewBag.detailPost)
+            {
+                <!-- POST -->
+                <div class="post beforepagination">
+                    <div class="topwrap">
+                        <div class="userinfo pull-left">
+                            <div class="avatar">
+                                @if (post.ImageDoctor != null)
+                                {
+                                    <a href="@Url.Action("User", "Profile", new {id = post.Doctor_ID})" title="profile"><img height="37" width="37" src="~/Content/images/@post.ImageDoctor" alt="" /></a>
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("User", "Profile", new {id = post.Doctor_ID})" title="profile"><img height="37" width="37" src="~/Content/images/user.png" alt="" /></a>
+                                }
+                                @if (Session["UserName"] != null)
+                                {
+                                    <div class="status green">&nbsp;</div>
+                                }
+                            </div>
+                        </div>
+                        <div class="posttext pull-left">
+                            @foreach (var doctor in ViewBag.doctor)
+                            {
+                                if (doctor.Id == post.Doctor_ID)
+                                {
+                                    <code>@doctor.Firstname @doctor.Lastname</code>
+                                }
+                            }
+
+                            <h2>@post.PostName</h2>
+                            <p>@Html.Raw(post.PostContent)</p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="postinfobot">
+
+                        <div class="like">
+                            <a style="color:#1abc9c; font-size:12px">
+                                @{
+                                    int countLike = 0;
+                                    string thongbao = " người khác thích nội dung này";
+                                    string toi = "Bạn thích nội dung này ";
+                                    string a = "Bạn và ";
+                                    foreach (var likePost in ViewBag.listLikePost)
+                                    {
+                                        if (likePost.Post_ID == post.Id)
+                                        {
+                                            countLike = countLike + 1;
+                                        }
+                                    }
+                                    if (countLike != 0)
+                                    {
+                                        if (ViewBag.likePostView != null && ViewBag.likePostView.StatusLike == true)
+                                        {
+                                            if (countLike == 1)
+                                            {
+                                                @toi
+                                            }
+                                            else
+                                            {
+                                                countLike = countLike - 1;
+                                                @a @countLike @thongbao
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (countLike != 0)
+                                            {
+                                                @countLike @thongbao
+                                            }
+                                        }
+                                    }
+
+                                }
+                            </a>
+                        </div>
+
+                        <div class="likeblock pull-left">
+                            <a href="" class="up">
+                                @{
+                                    if (Session["Username"] != null)
+                                    {
+                                        <form method="post">
+                                            @if (ViewBag.likePostView != null)
+                                            {
+                                                if (ViewBag.likePostView.StatusLike == false)
+                                                {
+                                                    // button thích
+                                                    <button name="btnlikePost" value="btnlikePost" title="thích" style="color:#1abc9c" type="submit" class="btn btn-link">
+                                                        <i class="fa fa-thumbs-o-up"></i>
+                                                    </button>
+                                                }
+                                                else
+                                                {
+                                                    // button bỏ thích
+                                                    <button name="btnlikePost" value="btnlikePost" title="bỏ thích" type="submit" class="btn btn-link">
+                                                        <i class="fa fa-thumbs-o-up"></i>
+                                                    </button>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                // button thích
+                                                <button name="btnlikePost" value="btnlikePost" title="thích" style="color:#1abc9c" type="submit" class="btn btn-link">
+                                                    <i class="fa fa-thumbs-o-up"></i>
+                                                </button>
+                                            }
+                                            <div class="prev pull-left">
+                                                @if (Session["Username"] != null)
+                                                {
+                                                    <a id="replyPost" title="trả lời"><i class="fa fa-reply"></i></a>
+                                                }
+                                            </div>
+                                        </form>
+                                    }
+                                }
+
+                            </a>
+                        </div>
+                        <div class="posted pull-left"><i class="fa fa-clock-o"></i> Đăng ngày : @post.CreateDate</div>
+                        <div class="next pull-right">
+                            @* xóa hoặc sửa bài viết *@
+                            @if (post.Doctor_ID == Convert.ToInt32(Session["Id"]))
+                            {
+                                <a href="/Post/Edit/@post.Id" title="sửa"><i class="fa fa-edit"></i></a>
+                                <a href="/Post/DeletePost/@post.Id" title="xóa" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này không?')"><i class="fa fa-trash"></i></a>
+                            }
+                            else
+                            {
+                                <a href="#"><i class="fa fa-share"></i></a>
+                                <a href="#"><i class="fa fa-flag"></i></a>
+                            }
+
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <!-- POST -->
+            }   
+
+            @*Phân trang*@
+            <div class="container" style="margin-top: 10px">
+                <div class="row">
+                    <div class="col-lg-9">
+
+                        <div class="pull-right">
+                            @*<ul class="paginationforum">*@
+                            @Html.PagedListPager(Model, page => Url.Action("DetailPost", new { page = page}), new PagedListRenderOptions
+                            {
+                           Display = PagedListDisplayMode.IfNeeded,
+                           DisplayPageCountAndCurrentLocation = true,
+                           PageCountAndCurrentLocationFormat = "Trang {0} / {1}.",
+
+                            })
+                            @*</ul>*@
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+
+            @foreach (var comment in Model)
+            {
+
+                <!-- POST -->
+                <div class="post">
+                    <div class="topwrap">
+                        <div class="userinfo pull-left">
+                            <div class="avatar">
+                                @foreach (var doctor in ViewBag.doctor)
+                                {
+                                    if (comment.Doctor_ID == doctor.Id)
+                                    {
+                                        if (doctor.Image != null)
+                                        {
+                                            <a href="@Url.Action("User", "Profile", new {id = comment.Doctor_ID})" title="profile"><img height="37" width="37" src="~/Content/images/@doctor.Image" alt="" /></a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("User", "Profile", new {id = comment.Doctor_ID})" title="profile"><img height="37" width="37" src="~/Content/images/user.png" alt="" /></a>
+                                        }
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="posttext pull-left">
+                            @foreach (var doctor in ViewBag.doctor)
+                            {
+                                if (doctor.Id == comment.Doctor_ID)
+                                {
+                                    <code>@doctor.Firstname @doctor.Lastname</code>
+                                }
+                            }
+                            <p>@Html.Raw(comment.CommentContent)</p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="postinfobot">
+
+                        <div class="likeblock pull-left">
+                            <a href="#" class="up">
+                                @{
+                                    var replyComment = "reply" + comment.Id;
+                                    var bbcode = "bbcode" + comment.Id;
+                                    var divBtnReply = "divBtnReply" + comment.Id;
+                                    var huy = "huy" + comment.Id;
+
+                                    if (Session["Username"] != null)
+                                    {
+                                        <div class="prev pull-left" style="cursor: pointer;">
+                                            <a id="@replyComment" title="trả lời"><i class="fa fa-reply"></i></a>
+                                        </div>
+                                    }
+                                }
+                            </a>
+                        </div>
+
+
+
+                        <div class="posted pull-left"><i class="fa fa-clock-o"></i> Ngày đăng : @comment.CommentDate</div>
+
+                        <div class="next pull-right">
+                            @* xóa hoặc sửa comment của người đã comment *@
+                            @if (comment.Doctor_ID == Convert.ToInt32(Session["Id"]))
+                            {
+                                <a href="/Post/EditComment/@comment.Id" title="sửa" data-toggle="modal" data-target="#@comment.Id"><i class="fa fa-edit"></i></a>
+                                <a href="/Post/DeleteComment/@comment.Id" title="xóa" onclick="return confirm('Bạn có chắc chắn muốn xóa bình luận này không?')"><i class="fa fa-trash"></i></a>
+                            }
+                            else
+                            {
+                                <a href="#"><i class="fa fa-share"></i></a>
+                                <a href="#"><i class="fa fa-flag"></i></a>
+                            }
+                        </div>
+
+                        <div class="clearfix"></div>
+
+
+                    </div>
+
+                    @* Khu vực trả lời comment *@
+                    <div class="topwrap">
+                        <div class="userinfo pull-left">
+                            <div class="avatar">
+
+                            </div>
+                        </div>
+                        @{
+                            var shownmore = "replyComments" + comment.Id;
+                            var div = "div" + comment.Id;
+                        }
+                        <div class="@shownmore" style="display: none; cursor: pointer;">
+                            Xem thêm các trả lời cũ...
+                        </div>
+                        <div class="posttext pull-left">
+                            @foreach (var replyComments in ViewBag.replyComment)
+                            {
+                                foreach (var doctor in ViewBag.doctor)
+                                {
+                                    if (replyComments.Doctor_ID == doctor.Id)
+                                    {
+                                        if (replyComments.Comment_ID == comment.Id)
+                                        {
+                                            <div class="@div">
+                                                <div class="userinfo pull-left">
+                                                    <div class="avatar">
+                                                        @if (doctor.Image != null)
+                                                        {
+                                                            <a href="@Url.Action("User", "Profile", new {id = comment.Doctor_ID})" title="profile"><img height="37" width="37" src="~/Content/images/@doctor.Image" alt="" /></a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="@Url.Action("User", "Profile", new {id = comment.Doctor_ID})" title="profile"><img height="37" width="37" src="~/Content/images/user.png" alt="" /></a>
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div class="posttext pull-left" style="background-color: #eff1f3; padding-left: 10px;">
+                                                    <code>@doctor.Firstname @doctor.Lastname</code>
+                                                    <p>@Html.Raw(replyComments.CommentContent)</p>
+                                                </div>
+
+                                                <div class="postinfobot">
+                                                    @{
+                                                        var replyComment2 = "replys" + replyComments.Id;
+                                                        if (Session["Username"] != null)
+                                                        {
+                                                            <div class="prev pull-left" style="cursor: pointer;">
+                                                                <a id="@replyComment2"><i class="fa fa-reply"></i></a>
+                                                            </div>
+                                                        }
+                                                    }
+
+                                                    <script>
+                                                        $('#@replyComment2').click(function () {
+                                                            $('#@bbcode').show();
+                                                            $('#@divBtnReply').show();
+                                                        });
+                                                    </script>
+
+
+                                                    <div class="posted pull-left"><i class="fa fa-clock-o"></i> Ngày đăng : @replyComments.CommentDate</div>
+
+                                                    <div class="next pull-right">
+                                                        @* xóa hoặc sửa commentReply của người đã commentReply *@
+                                                        @if (replyComments.Doctor_ID == Convert.ToInt32(Session["Id"]))
+                                                        {
+                                                            <a href="/Post/EditReplyComment/@replyComments.Id" title="sửa" data-toggle="modal" data-target="#@replyComments.Id"><i class="fa fa-edit"></i></a>
+                                                            <a href="/Post/DeleteReplyComment/@replyComments.Id" title="xóa" onclick="return confirm('Bạn có chắc chắn muốn xóa trả lời này không?')"><i class="fa fa-trash"></i></a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="#"><i class="fa fa-share"></i></a>
+                                                            <a href="#"><i class="fa fa-flag"></i></a>
+                                                        }
+                                                    </div>
+
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                }
+                            }
+
+
+                            <form class="form" method="post" action="/Post/ReplyComment/@comment.Id">
+
+                                @foreach (var post in ViewBag.detailPost)
+                                {
+                                    <input type="hidden" name="idPost" value="@post.Id" />
+                                }
+
+                                <div class="pull-left" id="@bbcode" style="display: none">
+                                    <div class="textwraper">
+                                        @foreach (var doctor in ViewBag.doctor)
+                                        {
+                                            if (doctor.Id == comment.Doctor_ID)
+                                            {
+                                                <div class="postreply">Bạn đang trả lời @doctor.Firstname @doctor.Lastname ...</div>
+                                                break;
+                                            }
+                                        }
+                                        <textarea name="replyComment" id="replyComment" value="" class="form-control input-lg textarea-editor" rows="20" style="resize:none;width:400px;"></textarea>
+                                    </div>
+                                </div>
+
+                                @*<div class="clearfix"></div>*@
+
+                                <div class="pull-right postreply" id="@divBtnReply" style="display: none">
+                                    <div class="pull-left" style="margin-right: 5px"><button type="submit" class="btn btn-primary">Trả lời</button></div>
+                                    <div class="pull-left"><a class="btn btn-primary" id="@huy">Hủy</a></div>
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <script>
+                                // click vô replycoment thì show ra bảng bbcode để reply comment
+                                $('#@replyComment').click(function () {
+                                    $('#@bbcode').show();
+                                    $('#@divBtnReply').show();
+                                });
+                                $('#@huy').click(function () {
+                                    $('#@bbcode').hide();
+                                    $('#@divBtnReply').hide();
+                                    });
+                                </script>
+
+                            </form>
+
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    @* Kết thúc Khu vực trả lời comment *@
+                </div><!-- POST -->
+            }
+
+            @if (Session["Username"] != null)
+            {
+                <!-- POST -->
+                <div class="post" id="divRepPost">
+                    @foreach (var post in ViewBag.detailPost)
+                    {
+                        <form class="form" method="post" action="/Post/Comment/@post.Id">
+                            <div class="topwrap">
+                                <div class="userinfo pull-left">
+                                    <div class="avatar">
+                                        @if (Session["img"] == null)
+                                        {
+                                            <img src="~/Content/images/user.png" alt="" />
+                                            <div class="status green">&nbsp;</div>
+                                        }
+                                        else
+                                        {
+                                            <img width="37" height="37" src='~/Content/images/@Session["img"]' alt="" />
+                                            <div class="status green">&nbsp;</div>
+                                        }
+                                    </div>
+                                </div>
+
+                                <div class="posttext pull-left">
+                                    <div class="textwraper">
+                                        <div class="postreply">Bình luận bài viết</div>
+                                        <textarea name="Comment" id="Comment" value="" class="form-control input-lg textarea-editor" rows="20" style="resize:none;width:400px;"></textarea>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="postinfobot">
+
+                                <div class="pull-right postreply">
+                                    <div class="pull-left smile"><a href="#"><i class="fa fa-smile-o"></i></a></div>
+                                    <div class="pull-left"><button type="submit" class="btn btn-primary">Trả lời</button></div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </form>
+                    }
+
+                </div><!-- POST -->
+                <script>
+                    // click vô replycoment thì show ra bảng bbcode để reply comment
+                    $('#replyPost').click(function () {
+                        $('#divRepPost').show();
+                    });
+                </script>
+            }
+        </div>
+
+        <div class="col-lg-3 col-md-3">
+
+            <!-- -->
+            <div class="sidebarblock">
+                <h3>Thành viên</h3>
+                <div class="divline"></div>
+                <div class="blocktxt">
+                    <ul class="cats">
+                        <li><a href="#">Thành viên đăng kí <span class="badge pull-right">@ViewBag.countUser</span></a></li>
+                        <li><a href="#">Lượt truy cập <span id="counter" class="badge pull-right"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- -->
+            <div class="sidebarblock">
+                <h3>Poll of the Week</h3>
+                <div class="divline"></div>
+                <div class="blocktxt">
+                    <p>Which game you are playing this week?</p>
+                    <form action="#" method="post" class="form">
+                        <table class="poll">
+                            <tr>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar color1" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 90%">
+                                            Call of Duty Ghosts
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="chbox">
+                                    <input id="opt1" type="radio" name="opt" value="1">
+                                    <label for="opt1"></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar color2" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 63%">
+                                            Titanfall
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="chbox">
+                                    <input id="opt2" type="radio" name="opt" value="2" checked>
+                                    <label for="opt2"></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar color3" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 75%">
+                                            Battlefield 4
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="chbox">
+                                    <input id="opt3" type="radio" name="opt" value="3">
+                                    <label for="opt3"></label>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    <p class="smal">Voting ends on 19th of October</p>
+                </div>
+            </div>
+
+            <!-- -->
+            <div class="sidebarblock">
+                <h3>My Active Threads</h3>
+                <div class="divline"></div>
+                <div class="blocktxt">
+                    <a href="#">This Dock Turns Your iPhone Into a Bedside Lamp</a>
+                </div>
+                <div class="divline"></div>
+                <div class="blocktxt">
+                    <a href="#">Who Wins in the Battle for Power on the Internet?</a>
+                </div>
+                <div class="divline"></div>
+                <div class="blocktxt">
+                    <a href="#">Sony QX10: A Funky, Overpriced Lens Camera for Your Smartphone</a>
+                </div>
+                <div class="divline"></div>
+                <div class="blocktxt">
+                    <a href="#">FedEx Simplifies Shipping for Small Businesses</a>
+                </div>
+                <div class="divline"></div>
+                <div class="blocktxt">
+                    <a href="#">Loud and Brave: Saudi Women Set to Protest Driving Ban</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Form sửa các bình luận của  bài viết *@
+@foreach (var comment in Model)
+{
+    if (comment.Doctor_ID == Convert.ToInt32(Session["Id"]))
+    {
+        <div class="modal fade" id="@comment.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <form method="post" action="/Post/EditComment/@comment.Id">
+                        <div class="modal-body">
+                            @foreach (var doctor in ViewBag.doctor)
+                            {
+                                if (doctor.Id == comment.Doctor_ID)
+                                {
+                                    <div class="postreply">Sửa binh luận @doctor.Firstname @doctor.Lastname</div>
+                                }
+                            }
+                            <textarea name="editComment" id="editComment" value="" class="form-control input-lg textarea-editor" rows="20" style="resize:none;width:400px;">@comment.CommentContent</textarea>
+                        </div>
+                        <div class="modal-footer border-top-0 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-success">Lưu thay đổi</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+@* Form sửa các trả lời của bình luận *@
+@foreach (var replyComments in ViewBag.replyComment)
+{
+    if (replyComments.Doctor_ID == Convert.ToInt32(Session["Id"]))
+    {
+        <div class="modal fade" id="@replyComments.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <form method="post" action="/Post/EditReplyComment/@replyComments.Id">
+                        <div class="modal-body">
+                            @foreach (var doctor in ViewBag.doctor)
+                            {
+                                if (doctor.Id == replyComments.Doctor_ID)
+                                {
+                                    <div class="postreply">Sửa binh luận @doctor.Firstname @doctor.Lastname</div>
+                                }
+                            }
+                            <textarea name="editReplyComment" id="editReplyComment" value="" class="form-control input-lg textarea-editor" rows="20" style="resize:none;width:400px;">@replyComments.CommentContent</textarea>
+                        </div>
+                        <div class="modal-footer border-top-0 d-flex justify-content-center">
+                            <button type="submit" class="btn btn-success">Lưu thay đổi</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+@* Đoạn script xử lí show more hoặc show less các trả lời bình luận *@
+@foreach (var comment in Model)
+{
+    var shownmore = "replyComments" + comment.Id;
+    var div = "div" + comment.Id;
+    <script>
+        if ($('.@div').length > 2) {
+            $('.@div:gt(1)').hide();
+            $('.@shownmore').show();
+        } else {
+            $('.@shownmore').hide();
+        }
+
+        $('.@shownmore').on('click', function () {
+            $('.@div:gt(1)').toggle();
+            $(this).text() == 'Ẩn bớt các bình luận cũ..' ? $(this).text('Xem thêm các trả lời cũ...') : $(this).text('Ẩn bớt các bình luận cũ..');
+        });
+    </script>
+}
+
+
+@* Đoạn script xử lí đếm số thành viên dag truy cập wed *@
+<script src="https://code.jquery.com/jquery-1.10.2.js" integrity="sha256-it5nQKHTz+34HijZJQkpNBIHsjpV8b6QzMJs9tmOBSo=" crossorigin="anonymous"></script>
+<script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+<script src="~/signalr/hubs"></script>
+<script>
+    $(function () {
+        var counterHub = $.connection.counterHub;
+
+        $.connection.hub.start().done(function () {
+
+        });
+
+        counterHub.client.UpdateCount = function (count) {
+            $("#counter").text(count);
+        };
+    });
+</script>
+
+@* Script Xử lí bbcode *@
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval");
+
+    @* Script Xử lí bbcode *@
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
+    @Scripts.Render("~/bundles/Script-custom-editor")
+
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
+}

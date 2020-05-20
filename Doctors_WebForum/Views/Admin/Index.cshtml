@@ -1,0 +1,30 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="m-subheader ">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="m-subheader__title m-subheader__title--separator">Trang Chủ</h3>
+            <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                <li class="m-nav__item m-nav__item--home">
+                    <a href="@Url.Action("Index","Admin")" class="m-nav__link m-nav__link--icon">
+                        <i class="m-nav__link-icon la la-home"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div>
+
+        </div>
+    </div>
+</div>
+<div class="m-content">
+    <div class="m-alert m-alert--icon m-alert--air m-alert--square alert alert-dismissible m--margin-bottom-30" role="alert" style="margin: auto;">
+        <div class="m-alert__text">
+            <h2><b>Quản Trị Doctor Web Forum</b></h2>
+        </div>
+    </div>
+    <div class="m-portlet m-portlet--mobile">
+        <img src="~/Content/cssAdmin/app/media/img/users/slide-doctor.jpg" height="370px" width="1200px" />
+    </div>
+</div>

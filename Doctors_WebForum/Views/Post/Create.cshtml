@@ -1,0 +1,157 @@
+﻿@model Doctors_WebForum.Models.ViewModels.PostViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 breadcrumbf">
+            <a href="#">Borderlands 2</a> <span class="diviver">&gt;</span> <a href="#">General Discussion</a> <span class="diviver">&gt;</span> <a href="#">Chủ đề mới</a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <!-- POST -->
+            <div class="post">
+                <form class="form newtopic" method="post">
+                    @Html.HiddenFor(model => model.Id)
+                    <div class="topwrap">
+                        <div class="userinfo pull-left">
+                            <div class="avatar">
+                                @if (Session["UserName"] != null)
+                                {
+                                    if (Session["Img"] != null)
+                                    {
+                                        <img width="37" height="37" src='~/Content/images/@Session["Img"]' alt="" />
+                                        <div class="status green">&nbsp;</div>
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Content/images/user.png" alt="" />
+                                        <div class="status green">&nbsp;</div>
+                                    }
+                                }
+                                else
+                                {
+                                    <img src="~/Content/images/user.png" alt="" />
+                                }
+                            </div>
+
+                            <div class="icons">
+                                <img src="~/Content/images/icon3.jpg" alt="" /><img src="~/Content/images/icon4.jpg" alt="" /><img src="~/Content/images/icon5.jpg" alt="" /><img src="~/Content/images/icon6.jpg" alt="" />
+                            </div>
+                        </div>
+                        <div class="posttext pull-left">
+
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    @Html.TextBoxFor(model => model.PostName, new { @class = "form-control", placeholder = "Tiêu đề của bài viết" })
+                                    @Html.ValidationMessageFor(model => model.PostName)
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    @Html.TextAreaFor(model => model.PostContent, new { rows = "20", style = "resize:none;width:400px;", @class = "form-control input-lg textarea-editor" })
+                                    @Html.ValidationMessageFor(model => model.PostContent)
+                                </div>
+                            </div>
+
+                            <div class="row newtopcheckbox">
+                                <div class="col-lg-6 col-md-6">
+                                    <div><p>Ai có thể thấy bài viết này?</p></div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="checkbox">
+                                                <label>
+                                                    @*<input type="checkbox" id="everyone" /> Everyone*@
+                                                    @Html.TextBoxFor(model => model.StatusBlock, new { type = "radio", name = "subject", @class = "subject-list", @Value = "False", @checked = "checked" }) Mọi người
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="checkbox">
+                                                <label>
+                                                    @*<input type="checkbox" id="friends" /> Only Friends*@
+                                                    @Html.TextBoxFor(model => model.StatusBlock, new { type = "radio", name = "subject", @class = "subject-list", @Value = "True"})  Chỉ mình tôi
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div>
+                                        <p>Share on Social Networks</p>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="fb" /> <i class="fa fa-facebook-square"></i>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-4">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="tw" /> <i class="fa fa-twitter"></i>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-4">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="gp" /> <i class="fa fa-google-plus-square"></i>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="postinfobot">
+
+                        <div class="notechbox pull-left">
+                            <input type="checkbox" name="note" id="note" class="form-control" />
+                        </div>
+
+                        <div class="pull-left">
+                            <label for="note"> Email me when some one post a reply</label>
+                        </div>
+
+                        <div class="pull-right postreply">
+                            <div class="pull-left smile"><a href="#"><i class="fa fa-smile-o"></i></a></div>
+                            <div class="pull-left"><button type="submit" class="btn btn-primary">Post</button></div>
+                            <div class="clearfix"></div>
+                        </div>
+
+
+                        <div class="clearfix"></div>
+                    </div>
+                </form>
+            </div><!-- POST -->
+
+            <div class="row similarposts">
+                <div class="col-lg-10"><i class="fa fa-info-circle"></i> <p>Similar Posts according to your <a href="#">Topic Title</a>.</p></div>
+                <div class="col-lg-2 loading"><i class="fa fa-spinner"></i></div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@* Script Xử lí bbcode *@
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval");
+
+    @* Script Xử lí bbcode *@
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
+    @Scripts.Render("~/bundles/Script-custom-editor")
+
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
+}

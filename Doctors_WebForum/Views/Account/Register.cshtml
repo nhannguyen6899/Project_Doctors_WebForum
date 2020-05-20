@@ -1,0 +1,284 @@
+﻿@model Doctors_WebForum.Models.ViewModels.RegisterDoctorViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 breadcrumbf">
+            <a href="#">Đăng kí</a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-8">
+            <!-- POST -->
+            <div class="post">
+                <form class="form newtopic" method="post">
+                    <div class="postinfotop">
+                        <h2>Đăng kí thành viên</h2>
+                    </div>
+
+                    <!-- acc section -->
+                    <div class="accsection">
+                        <div class="acccap">
+                            <div class="userinfo pull-left">
+
+                            </div>
+                        </div>
+                        @*<center>*@
+                        <div class="topwrap">
+                            <div class="posttext" style="margin-left: 70px">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        @*<input type="text" placeholder="First Name" class="form-control" />*@
+                                        @Html.TextBoxFor(model => model.Firstname, new { @class = "form-control", id = "exampleInputEmail1", placeholder = "Họ" })
+                                        @Html.ValidationMessageFor(model => model.Firstname)
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        @*<input type="text" placeholder="Last Name" class="form-control" />*@
+                                        @Html.TextBoxFor(model => model.Lastname, new { @class = "form-control", id = "exampleInputEmail1", placeholder = "Tên" })
+                                        @Html.ValidationMessageFor(model => model.Lastname)
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        @*<input type="text" placeholder="User Name" class="form-control" />*@
+                                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Email" })
+                                        @Html.ValidationMessageFor(model => model.Email)
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        @*<input type="text" placeholder="User Name" class="form-control" />*@
+                                        @Html.TextBoxFor(model => model.Username, new { @class = "form-control", placeholder = "Tên đăng nhập" })
+                                        @Html.ValidationMessageFor(model => model.Username)
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        @*<input type="password" placeholder="Password" class="form-control" id="pass" name="pass" />*@
+                                        @Html.TextBoxFor(model => model.Password, new { @class = "form-control", placeholder = "Mật khẩu", type = "password" })
+                                        @Html.ValidationMessageFor(model => model.Password)
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        @*<input type="password" placeholder="Retype Password" class="form-control" id="pass2" name="pass2" />*@
+                                        @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control", placeholder = "Nhập lại mật khẩu", type = "password" })
+                                        @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        @*</center>*@
+                    </div><!-- acc section END -->
+                    <!-- acc section -->
+                    <div class="accsection privacy" style="margin-left: 70px;">
+                        @*<center>*@
+                        <div class="topwrap">
+                            <div class="posttext">
+                                <div class="row newtopcheckbox">
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="row">
+                                            <div class="col-lg-2 col-md-4">
+                                                <label class="text-info">Giới tính:</label>
+                                            </div>
+                                            <div class="col-lg-3 col-md-4">
+                                                <label class="text-info">
+                                                    @*<input type="checkbox" id="male" checked /> Male*@
+                                                    @Html.TextBoxFor(model => model.Gender, new { type = "radio", name = "subject", @class = "subject-list", @Value = "Nam", @checked = "checked" }) Nam
+                                                </label>
+                                            </div>
+                                            <div class="col-lg-3 col-md-4">
+                                                <label class="text-primary">
+                                                    @*<input type="checkbox" id="female" /> Female*@
+                                                    @Html.TextBoxFor(model => model.Gender, new { type = "radio", name = "subject", @class = "subject-list", @Value = "Nữ" }) Nữ
+                                                </label>
+                                            </div>
+                                            <div class="col-lg-3 col-md-4">
+                                                <label class="text-warning">
+                                                    @*<input type="checkbox" id="other" /> Other*@
+                                                    @Html.TextBoxFor(model => model.Gender, new { type = "radio", name = "subject", @class = "subject-list", @Value = "Giới tính khác" }) Giới tính khác
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="topwrap">
+                            <div class="posttext">
+                                <div class="row newtopcheckbox">
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="row">
+                                            <div class="col-lg-2 col-md-4">
+                                                <label class="text-info">Ngày sinh:</label>
+                                            </div>
+                                            <div class="col-lg-3 col-md-4">
+                                                @Html.DropDownListFor(model => model.Day, Enumerable.Range(1, 31).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "-- Ngày --")
+                                            </div>
+                                            <div class="col-lg-3 col-md-4">
+                                                @Html.DropDownListFor(model => model.Month, Enumerable.Range(1, 12).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "-- Tháng --")
+                                            </div>
+                                            <div class="col-lg-3 col-md-4">
+                                                @Html.DropDownListFor(model => model.Year, Enumerable.Range(1975, DateTime.Now.Year - 1974).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "-- Năm --")
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        @*</center>*@
+                    </div>
+                    <!-- acc section END -->
+                    <div class="postinfobot">
+
+                        <div class="notechbox pull-left" ">
+                            <input type="checkbox" name="note" id="note" class="form-control">
+                        </div>
+
+                        <div class="pull-left lblfch">
+                            <label for="note"> I agree with the Terms and Conditions of this site</label>
+                        </div>
+
+                        <div class="pull-right postreply" style="margin-right: 45px">
+                            <div class="pull-left smile"><a href="#"><i class="fa fa-smile-o"></i></a></div>
+                            <div class="pull-left"><button type="submit" class="btn btn-primary">Đăng kí</button></div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </form>
+            </div><!-- POST -->
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+
+            <!-- -->
+            <div class="sidebarblock">
+                <h3>Thành viên</h3>
+                <div class="divline"></div>
+                <div class="blocktxt">
+                    <ul class="cats">
+                        <li><a href="#">Thành viên đăng kí <span class="badge pull-right">@ViewBag.countUser</span></a></li>
+                        <li><a href="#">Lượt truy cập <span id="counter" class="badge pull-right"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- -->
+            <div class="sidebarblock">
+                <h3>Poll of the Week</h3>
+                <div class="divline"></div>
+                <div class="blocktxt">
+                    <p>Which game you are playing this week?</p>
+                    <form action="#" method="post" class="form">
+                        <table class="poll">
+                            <tr>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar color1" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 90%">
+                                            Call of Duty Ghosts
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="chbox">
+                                    <input id="opt1" type="radio" name="opt" value="1">
+                                    <label for="opt1"></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar color2" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 63%">
+                                            Titanfall
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="chbox">
+                                    <input id="opt2" type="radio" name="opt" value="2" checked>
+                                    <label for="opt2"></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar color3" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 75%">
+                                            Battlefield 4
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="chbox">
+                                    <input id="opt3" type="radio" name="opt" value="3">
+                                    <label for="opt3"></label>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    <p class="smal">Voting ends on 19th of October</p>
+                </div>
+            </div>
+
+            <!-- -->
+            <div class="sidebarblock">
+                <h3>My Active Threads</h3>
+                <div class="divline"></div>
+                <div class="blocktxt">
+                    <a href="#">This Dock Turns Your iPhone Into a Bedside Lamp</a>
+                </div>
+                <div class="divline"></div>
+                <div class="blocktxt">
+                    <a href="#">Who Wins in the Battle for Power on the Internet?</a>
+                </div>
+                <div class="divline"></div>
+                <div class="blocktxt">
+                    <a href="#">Sony QX10: A Funky, Overpriced Lens Camera for Your Smartphone</a>
+                </div>
+                <div class="divline"></div>
+                <div class="blocktxt">
+                    <a href="#">FedEx Simplifies Shipping for Small Businesses</a>
+                </div>
+                <div class="divline"></div>
+                <div class="blocktxt">
+                    <a href="#">Loud and Brave: Saudi Women Set to Protest Driving Ban</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+    $('.subject-list').on('change', function () {
+
+        $('.subject-list').not(this).prop('checked', false);
+
+    });
+
+</script>
+
+@* Đoạn script xử lí đếm số thành viên dag truy cập wed *@
+<script src="https://code.jquery.com/jquery-1.10.2.js" integrity="sha256-it5nQKHTz+34HijZJQkpNBIHsjpV8b6QzMJs9tmOBSo=" crossorigin="anonymous"></script>
+<script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+<script src="~/signalr/hubs"></script>
+<script>
+    $(function () {
+        var counterHub = $.connection.counterHub;
+
+        $.connection.hub.start().done(function () {
+
+        });
+
+        counterHub.client.UpdateCount = function (count) {
+            $("#counter").text(count);
+        };
+    });
+</script>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval");
+}
