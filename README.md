@@ -1,8 +1,8 @@
 I. Giới thiệt về dự án
 1. Tên dự án: Doctor Web Forum
 2. Mô tả dự án: 
-- Dự án này là 1 trang web diễn đàn, nó sẽ giúp cho các bác sĩ chia sẻ các kinh nghiệm với nhau hoặc là
- các bệnh nhân có thể vào nhờ các bác sĩ tư vấn về căn bệnh của mình. 
+- Dự án này là 1 trang web diễn đàn, nó sẽ giúp cho các bác sĩ chia sẻ các kinh nghiệm với nhau hoặc
+các bệnh nhân có thể nhờ các bác sĩ tư vấn về căn bệnh của mình. 
 3. Người dùng hướng đến
 - Dự án này nhắm đến người dùng chủ yếu là các bác sĩ hoặc là những bệnh nhân đang mắc 1 căn bệnh nào
  đó
@@ -15,28 +15,28 @@ II. Công nghệ sử dụng
 1. Công nghệ sử dụng cho dự án
 - Dự án được viết bằng phần mềm Visual Studio bằng ngôn ngữ C# (ASP.NET MVC5, LINQ, SQL Server...)
 2. Những vấn đề đặt ra cho dự án
-- Xây dựng cơ sở dữ liệu(database)
+- Xây dựng cơ sở dữ liệu (database)
 - Xây dừng phần quản trị cho web:
 + Về giao diện: Dễ nhìn, dễ sử dụng
 + Về chức năng: Đầy đủ các chức năng
-vd: đăng nhập quản trị, thêm, xóa, sửa, tìm kiếm ..
+vd: đăng nhập quản trị, thêm, xóa, sửa, tìm kiếm ..vv
 - Xây dựng phần web cho người dùng:
 + Về giao diện: Dễ nhìn, dễ sử dụng
 + Về chức năng: Phải có đầy đủ các chức năng cho người dùng
-vd: đăng kí, đăng nhập, đăng bài, ..vv
+vd: đăng kí, đăng nhập, đăng bài, tìm kiếm ..vv
 3. Giải quyết vấn đề
 - Phân tích nghiệp vụ và xây dựng cơ sở dữ liệu(database)
 - Tiến hành cài đặt phần mềm và bắt tay vào thiết kế giao diện và xây dựng các chức năng cho website
 
 III. Chi tiết sản phẩm
-1. Phần quản trị(Admin)
+1. Phần quản trị (Admin)
 * Chức năng:
 - Quản lí tài khoản
 + Đăng nhập, Đăng xuất
 + Thay đổi thông tin cá nhân
 - Quản lí chuyên môn
 + Show danh sách thông tin chuyên môn
-+ Thêm chủ chuyên môn
++ Thêm chuyên môn mới
 + Sửa chuyên môn
 + Xóa chuyên môn
 + Tìm kiếm chuyên môn
@@ -54,7 +54,7 @@ III. Chi tiết sản phẩm
 + Show danh sách thông tin bài đăng
 + Tìm kiếm bài đăng
 + Xóa bài đăng
-2. Phần người dùng(User)
+2. Phần người dùng (User)
 * Chức năng:
 - Đăng kí (đăng kí phải xác nhận mail thì mới được coi là thành viên), đăng nhập, đăng xuất
 - Show danh sách thông tin chuyên môn
@@ -67,7 +67,7 @@ III. Chi tiết sản phẩm
 + Sửa hoặc xóa được bài viết do mình tạo ra
 + Vào trang cá nhân của mình hoặc người khác có thể xem được thông tin của nhau
 vd: Tên, ngày tham gia, hình đại diện, tổng bài viết, số lượt thích..
-+ Có thể ẩn thông tin cá nhân của mình(chỉ mình mới có thể thấy)
++ Có thể ẩn thông tin cá nhân của mình (chỉ mình mới có thể thấy)
 + Thay đổi được mật khẩu hoặc thông tin cá nhân
 - Trên giao diện người dùng xem được tổng số thành viên và tổng số lượt truy cập vào web
 3. Kiểm tra lại các chức năng đã làm
@@ -78,7 +78,7 @@ IV. Phần tổng kết và phương hướng phát triển
 - Phân tích và giải quyết được yêu cầu của dự án
 - Phân chia công việc, thời gian làm việc hợp lí
 2. Phương hướng phát triển trong tương lai
-- Em sẽ cố gắng trau dồi, học hỏi thật nhiều kinh nghiệm thật nhiều kiến thức hơn nữa về ngôn ngữ
+- Em sẽ cố gắng trau dồi, học hỏi, tích lũy thêm nhiều kinh nghiệm, nhiều kiến thức hơn về ngôn ngữ
  C#, .NET để sau này khi đi làm gặp những dự án tiếp theo thì em sẽ làm tốt hơn.
 
 
