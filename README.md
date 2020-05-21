@@ -79,7 +79,7 @@ IV. Phần tổng kết và phương hướng phát triển
 - Phân chia công việc, thời gian làm việc hợp lí
 2. Phương hướng phát triển trong tương lai
 - Em sẽ cố gắng trau dồi, học hỏi, tích lũy thêm nhiều kinh nghiệm, nhiều kiến thức hơn về ngôn ngữ
- C#, .NET để sau này khi đi làm gặp những dự án tiếp theo thì em sẽ làm tốt hơn.
+ C#, .NET để sau này khi làm những dự án tiếp theo thì em sẽ làm tốt hơn.
 
 
 
